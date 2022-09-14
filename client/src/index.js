@@ -9,8 +9,14 @@ const { Search } = Input;
 const { Text } = Typography;
 const { Meta } = Card;
 
-const webSocketsServerPort = process.env.PORT || 3000;
-const client = new W3CWebSocket(`ws://127.0.0.1:${webSocketsServerPort}`);
+const protocol = window.location.href.startsWith('https://') ? 'wss' : 'ws';
+const webSocketServerPort = process.env.PORT || 3000;
+const webSocketServerURL = 
+  process.env?.PROJECT_DOMAIN ? 
+  `wss://${process.env.PROJECT_DOMAIN}` : 
+  `${protocol}://localhost:${webSocketServerPort}`;
+
+const client = new W3CWebSocket(webSocketServerURL);
 
 export default class App extends Component {
 
@@ -77,6 +83,7 @@ export default class App extends Component {
               size="large"
               onChange={(e) => this.setState({ searchVal: e.target.value })}
               onSearch={value => this.onButtonClicked(value)}
+              autoFocus
             />
           </div> 
         </div>
