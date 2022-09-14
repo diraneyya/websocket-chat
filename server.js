@@ -12,15 +12,39 @@ http.listen(process.env.PORT || 3000, function () {
   console.log("App listening at http://%s:%s", host, port);
 });
 
+const clients = {};
+
+// This code generates unique userid for everyuser.
+const getUniqueID = () => {
+  const s4 = () =>
+    Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  return s4() + s4() + "-" + s4();
+};
+
 ws.on("connection", function (socket) {
-  console.log("Client connected to the WebSocket");
+  var userID = getUniqueID();
+  clients[userID] = socket;
+  
+  console.log(
+    "connected: " + userID + " in " + Object.getOwnPropertyNames(clients)
+  );
 
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-  });
+  socket.on("message", function (data, isBinary) {
+    const message = JSON.parse(isBinary ? data : data.toString());
+    if (message?.type === "message") {
+      console.log(`Received Message '${message.msg}' from ${message.user}`);
 
-  socket.on("message", function (msg) {
-    console.log("Received a chat message");
-    ws.emit("chat message", msg);
+      // broadcasting message to all connected clients
+      for (key in clients) {
+        clients[key].send(JSON.stringify(message));
+      }
+
+      console.log(`Broadcasted message to ${Object.keys(clients).length} user(s).`);
+    } else {
+        console.log(`INCOMPATIBLE MESSAGE (type: ${typeof message})`);
+        console.log(message);
+    }
   });
 });
