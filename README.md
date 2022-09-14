@@ -56,7 +56,8 @@ git branch -b build
 git rm --cached -r client
 # Generate bundles of frontend application
 npm run build
-# Add freshly created bundles to branch and commit (force flag is needed because build folder is ignored in .gitignore)
+# Add freshly created bundles to branch and commit
+# (force flag is needed because build folder is ignored in .gitignore)
 git add -f client/build
 git commit -m 'Added bundles of frontend and deleted sources (issue #1)'
 # Delete untracked files (sources in client subfolder)
