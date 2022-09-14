@@ -10,11 +10,8 @@ const { Text } = Typography;
 const { Meta } = Card;
 
 const protocol = window.location.href.startsWith('https://') ? 'wss' : 'ws';
-const webSocketServerPort = process.env.PORT || 3000;
-const webSocketServerURL = 
-  process.env?.PROJECT_DOMAIN ? 
-  `wss://${process.env.PROJECT_DOMAIN}` : 
-  `${protocol}://localhost:${webSocketServerPort}`;
+const webSocketServerHost = window.location.href.match(/https?:\/\/([^/]+)/)[1];
+const webSocketServerURL = `${protocol}://${webSocketServerHost}`;
 
 const client = new W3CWebSocket(webSocketServerURL);
 

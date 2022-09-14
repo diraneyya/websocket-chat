@@ -13,10 +13,30 @@ npm i
 cd ./client && npm i
 ```
 
-## Running the application
+## Build the frontend
 
-To run the application in production, one must type `npm start` from the root of the respository, which will build the frontend and launch the backend at port `3000`.
+To build the React frontend before running the fullstack application, run the following command from the root of the repository:
 
-## Developing the client (i.e. frontend)
+```bash
+npm run build
+```
 
-To develop the React frontend application, `cd` into the `client` subfolder and launch the development server using `npm start`.
+This will generate the dependencies of the client (i.e. frontend) React application at `client/node_modules`.
+
+## Run the application
+
+To run the application in production, run the followint command from the root of the respository:
+
+```
+npm start
+```
+
+This will launch the application at port `3000`.
+
+### More details
+
+The application that runs with the above command is made up of two logical parts:
+
+- A WebSocket backend serving a WbeSocket endpoint at port `3000``
+- An HTTP webserver serving the frontend, also at port `3000` 
+
