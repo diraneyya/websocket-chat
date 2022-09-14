@@ -25,7 +25,7 @@ This will generate the dependencies of the client (i.e. frontend) React applicat
 
 ## Run the application
 
-To run the application in production, run the followint command from the root of the respository:
+To run the application in production, run the following command from the root of the respository:
 
 ```
 npm start
@@ -37,7 +37,7 @@ This will launch the application at port `3000`.
 
 The application that runs with the above command is made up of two logical parts:
 
-- A WebSocket backend serving a WbeSocket endpoint at port `3000``
+- A WebSocket backend serving a WbeSocket endpoint at port `3000`.
 - An HTTP webserver serving the frontend, also at port `3000` 
 
 ## Deploy on Glitch
