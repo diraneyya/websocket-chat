@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="style.css">
+<h1>
+  Web Socket Example
+</h1>
+<p>
+  open console to see connection.
+
+  <br />
+  <button type="button" onclick="ws.send('Hello from the Browser!')">
+      Send something via WebSockets
+  </button>
+
+  <ul id="messages">
+      <li>No messages yet</li>
+  </ul>
+</p>
+<script>
+  const ws = new WebSocket('ws://localhost:3000');
+
+  ws.onopen = function () {
+      console.log('websocket is connected ...')
+      ws.send('connected')
+  }
+
+  ws.onmessage = function (ev) {
+      console.log(ev.data);
+
+      const list = document.getElementById("messages");
+      list.innerHTML += `<li>${ev.data}</li>`;
+  }
+</script>
