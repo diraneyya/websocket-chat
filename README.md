@@ -52,14 +52,13 @@ Assuming the existence of two remotes: `origin` and `glitch` for GitHub and your
 # Delete old and create a new build branch
 git branch -D build
 git branch -b build
-# Remove client subfolder from branch while leaving the files
-# in the working tree
+# Remove client subfolder from branch while leaving the files in the working tree
 git rm --cached -r client
 # Generate bundles of frontend application
 npm run build
-# Add freshly created bundles to branch and commit
+# Add freshly created bundles to branch and commit (force flag is needed because build folder is ignored in .gitignore)
 git add -f client/build
-git commit -m 'Added built bundles of frontend and deleted sources'
+git commit -m 'Added bundles of frontend and deleted sources (issue #1)'
 # Delete untracked files (sources in client subfolder)
 git clean -fd
 # Push to glitch and to github (advisable to delete remote branches first)
